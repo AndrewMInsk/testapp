@@ -1,44 +1,56 @@
-import React, {Component} from 'react'
-class Article extends Component{
+import React, {Component, PureComponent} from 'react'
+class Article extends PureComponent{
 
     constructor(props){
         super(props)
         this.state = {
-            isOpen: props.isDefaultOpen
+            counter: 0
         }
         this.handleClick = handleClick.bind(this);
 
     }
+
     componentWillReceiveProps(nextProps){
         if(nextProps.isDefaultOpen!=this.props.isDefaultOpen){
             this.setState({
                 isOpen: nextProps.isDefaultOpen
             })
         }
-        console.log('---', nextProps);
+    }
+    componentWillUpdate(){
+        console.log('---', 'update');
+
     }
     render(){
-        const {article} = this.props
+        const {article, isOpen} = this.props
 
-        const body = this.state.isOpen && <section>{article.text}</section>
+        const body = isOpen && <section>{article.text}</section>
         return (
             <div className='test' style={{color:'red'}}>
-                <h2>{article.title}</h2>
+                <h2 onClick={this.increaseCounter}>{article.title}
+                clicked {this.state.counter}
                 <button onClick={this.handleClick}>
-                    {this.state.isOpen?'close':'open'}
+                    {isOpen?'close':'open'}
 
-                </button>
+                </button></h2>
                 {body}
                 <h3>Create : {(new Date(article.date)).toDateString()}</h3>
             </div>
         )
     }
+
+    increaseCounter = () => {
+        console.log('---', 'clicked 111');
+        this.setState({
+            counter : this.state.counter+1
+        })
+    }
 }
 
 function handleClick(){
     console.log('---', 'clicked');
-    this.setState({
-        isOpen : !this.state.isOpen
-    })
+    // this.setState({
+    //     isOpen : !this.state.isOpen
+    // })
 }
 export default Article
