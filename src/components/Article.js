@@ -4,14 +4,21 @@ class Article extends Component{
     constructor(props){
         super(props)
         this.state = {
-            isOpen: false
+            isOpen: props.isDefaultOpen
         }
         this.handleClick = handleClick.bind(this);
 
     }
+    componentWillReceiveProps(nextProps){
+        if(nextProps.isDefaultOpen!=this.props.isDefaultOpen){
+            this.setState({
+                isOpen: nextProps.isDefaultOpen
+            })
+        }
+        console.log('---', nextProps);
+    }
     render(){
         const {article} = this.props
-        console.log('---', this.props);
 
         const body = this.state.isOpen && <section>{article.text}</section>
         return (
