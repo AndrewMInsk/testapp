@@ -22,6 +22,9 @@ class App  extends PureComponent{
             reverted : !this.state.reverted
             
     })
-}
+    }
+
+
+
 }
 export default App

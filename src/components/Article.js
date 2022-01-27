@@ -10,26 +10,26 @@ class Article extends PureComponent{
 
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.isDefaultOpen!=this.props.isDefaultOpen){
-            this.setState({
-                isOpen: nextProps.isDefaultOpen
-            })
-        }
-    }
+    // componentWillReceiveProps(nextProps){
+    //     if(nextProps.isDefaultOpen!=this.props.isDefaultOpen){
+    //         this.setState({
+    //             isOpen: nextProps.isDefaultOpen
+    //         })
+    //     }
+    // }
     componentWillUpdate(){
         console.log('---', 'update');
 
     }
     render(){
-        const {article, isOpen} = this.props
+        const {article, isOpen, onTest} = this.props
 
         const body = isOpen && <section>{article.text}</section>
         return (
             <div className='test' style={{color:'red'}}>
                 <h2 onClick={this.increaseCounter}>{article.title}
                 clicked {this.state.counter}
-                <button onClick={this.handleClick}>
+                <button onClick={onTest}>
                     {isOpen?'close':'open'}
 
                 </button></h2>
